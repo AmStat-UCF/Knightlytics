@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* =========================================================
+   THEME — change the site's colors here.
+   Every component uses these through Tailwind classes like
+   bg-bg, bg-surface, text-muted, border-line, bg-accent, text-accent.
+   Fonts are picked in lib/fonts.ts.
+   ========================================================= */
+:root {
+  --bg: #0a0a0b;          /* page background */
+  --bg-alt: #0e0e10;      /* alternating section background */
+  --surface: #141416;     /* cards */
+  --line: #2a2a2e;        /* borders */
+  --text: #f5f3ee;        /* main text */
+  --text-soft: #cfcac0;   /* paragraphs */
+  --muted: #a8a39a;       /* labels, captions */
+  --accent: #ffc904;      /* UCF gold — buttons, highlights */
+  --accent-hover: #ffe070;
+  --accent-ink: #0a0a0b;  /* text that sits on top of the accent color */
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* so sticky navbar doesn't cover section titles */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Faint data-grid background used in the hero */
+.bg-grid {
+  background-image:
+    linear-gradient(#18181b 1px, transparent 1px),
+    linear-gradient(90deg, #18181b 1px, transparent 1px);
+  background-size: 48px 48px;
+}
