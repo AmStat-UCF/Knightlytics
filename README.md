@@ -32,7 +32,8 @@ Each section is its own file in `components/`:
 - `Hero.tsx` — name, tagline, dates, location, buttons, host logo + countdown
 - `Countdown.tsx` — live countdown (set `event.countdownTo` in `lib/content.ts`)
 - `Stats.tsx` — row of big numbers (set `stats` to `[]` to hide it)
-- `Landing.tsx` — the simple landing page: name, About, buttons, AmStat UCF logo
+- `Landing.tsx` — top of the simple landing page: name, About, buttons, date, AmStat UCF logo
+- `SponsorInterest.tsx` — "want to sponsor?" band on the landing page
 - `InterestForm.tsx` — the form on the /register page
 - `About.tsx`, `Tracks.tsx`, `Schedule.tsx` (Day 1/Day 2 tabs), `Faq.tsx` (click to expand), `Sponsors.tsx`, `Team.tsx`, `Footer.tsx`
 
@@ -42,8 +43,8 @@ Small shared pieces are in `components/ui/`: `Section` (page width + spacing), `
 
 `site.showFullSite` in `lib/content.ts` picks what the home page shows:
 
-- `false` (now): the simple landing page (`components/Landing.tsx`) with the event name, About, the
-  "Join the Interest Form" and "Learn More" buttons, and the AmStat UCF logo.
+- `false` (now): the simple landing page: event name, About, the "Join the Interest Form" and
+  "Learn More" buttons, date, the AmStat UCF logo, a short FAQ (`landingFaq`), and a sponsor band.
 - `true`: the full site: `Hero`, `Stats`, `About`, `Tracks`, `Schedule`, `Faq`, `Sponsors`, `Team`.
   Fill in their content in `lib/content.ts` first.
 
@@ -70,6 +71,38 @@ its disk is wiped. So the data needs an outside home. Common choices:
 
 Whichever you pick, keep its keys or passwords in a `.env.local` file (already ignored by git) and read them in
 `route.ts` with `process.env.YOUR_KEY_NAME`. Add the same variables in Vercel's project settings when you deploy.
+
+## MLH website checklist
+
+Based on MLH's organizer guide (guide.mlh.com → Hackathon Website). ✅ = built in, you fill in the content.
+
+**Now: placeholder site (landing page)**
+
+- ✅ Event date, at least the month: `event.dates`
+- ✅ Pre-registration form with name, email, socials: `/register`
+- ✅ Team support email: `event.contactEmail` (footer)
+- ✅ Social media links: `socials` (footer). Replace the `#` links; MLH mentions Facebook, Instagram, TikTok, LinkedIn.
+- ✅ Date to come back for full details: `event.detailsReleaseDate`
+- ✅ Basic FAQ for newcomers: `landingFaq`
+- ✅ Sponsor interest: `event.sponsorEmail` + `SponsorInterest.tsx`
+
+**Full site (`showFullSite: true`)**
+
+- ✅ Landing: name, logo, dates, registration. Mentor/judge/volunteer interest is the "How would you like to take part?" question on the form.
+- ✅ About + team, sponsors with logos and links, FAQ covering MLH's standard topics (`faq`)
+- ✅ Footer: rules link, code of conduct, support email (`footerLinks`, `event.contactEmail`)
+
+**Add at least one month before the event** (not built yet)
+
+- [ ] Schedule with room numbers (the `location` field in `schedule`)
+- [ ] Venue address and a map showing hacking, workshop, and rest areas
+- [ ] One communication channel for updates (e.g. Discord), linked on the site
+- [ ] Prizes and tracks (`tracks`)
+- [ ] Speakers, judges, and mentors with short bios
+- [ ] If you join the MLH season: switch registration to MyMLH and follow MLH's member-event requirements
+
+**Accessibility:** text colors meet WCAG's 4.5:1 contrast minimum. Keep it that way if you change colors
+(check with WebAIM's contrast checker), and give every image real `alt` text.
 
 ## Notes
 

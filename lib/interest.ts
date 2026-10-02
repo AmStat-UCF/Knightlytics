@@ -10,6 +10,9 @@ export type InterestSubmission = {
   firstName: string;
   lastName: string;
   email: string;
+  linkedin: string; // optional, may be ""
+  github: string; // optional, may be ""
+  roles: string[]; // one or more of interestForm.roles (participant, mentor, judge, volunteer)
   school: string;
   major: string;
   year: string; // one of interestForm.years in lib/content.ts

@@ -30,7 +30,8 @@ export const event = {
   nameParts: ["Knight", "alytics"] as const,
   tagline: "[One-line tagline — what attendees build in 24 hours with real data.]",
   badges: ["UCF's Datathon", "[YEAR] Edition"],
-  dates: "Date coming soon", // e.g. "February 20–21, 2027"
+  // MLH: show the event date. If you don't have an exact date yet, show at least the month.
+  dates: "[MONTH YEAR]", // e.g. "February 2027", later "February 20–21, 2027"
   time: "", // e.g. "9:00 AM" (leave "" to hide)
   location: "University of Central Florida · Orlando, FL", // add the venue when you know it
   // Countdown target in ISO format, e.g. "2027-02-20T09:00:00-05:00".
@@ -39,7 +40,10 @@ export const event = {
   registerUrl: "/register", // the interest form page (app/register/page.tsx)
   registerLabel: "Join the Interest Form",
   learnMoreUrl: "#about", // where "Learn More" goes (e.g. the AmStat UCF website)
-  contactEmail: "[CONTACT EMAIL]",
+  // MLH: tell visitors when to come back for full details (schedule, tracks, prizes)
+  detailsReleaseDate: "[DATE]", // e.g. "December 1"
+  contactEmail: "[CONTACT EMAIL]", // MLH: a team inbox for hacker questions
+  sponsorEmail: "[SPONSORSHIP EMAIL]", // can be the same as contactEmail
   year: "[YEAR]",
 };
 
@@ -117,18 +121,43 @@ export const schedule = {
   ],
 };
 
+/**
+ * FAQ for the full site. These are the standard topics MLH recommends covering.
+ * Fill in each answer, and delete any question that doesn't apply.
+ */
 export const faq = {
   heading: "Questions?",
   items: [
-    { question: "What is a datathon?", answer: "[Answer goes here.]" },
-    { question: "Who can attend?", answer: "[Answer goes here.]" },
+    { question: "What is a datathon?", answer: "A datathon is a hackathon focused on data. Teams spend [XX] hours exploring real datasets, finding insights, and building projects like dashboards, models, or visualizations, then present them to judges." },
+    { question: "How much does it cost?", answer: "[Free? What's included: meals, swag, workshops...]" },
+    { question: "Where is it, and is there parking?", answer: "[Venue, in-person or virtual, parking details.]" },
+    { question: "Who can attend?", answer: "[Eligibility: which students, minimum age, experience level.]" },
     { question: "Do I need experience with data science?", answer: "[Answer goes here.]" },
-    { question: "How much does it cost?", answer: "[Answer goes here.]" },
-    { question: "What should I bring?", answer: "[Answer goes here.]" },
-    { question: "Can I come without a team?", answer: "[Answer goes here.]" },
-    { question: "Will there be food?", answer: "[Answer goes here.]" },
+    { question: "How big can teams be? Can I come without a team?", answer: "[Team size limits and how team-matching works.]" },
+    { question: "Do you offer travel reimbursement?", answer: "[Yes / no / details.]" },
+    { question: "What should I bring?", answer: "[Laptop, charger, student ID, ...]" },
+    { question: "Can I start my project early or use past work?", answer: "[Your rules on prior work.]" },
+    { question: "How many tracks or challenges can I enter?", answer: "[Answer goes here.]" },
+    { question: "Do I need to stay overnight?", answer: "[Answer goes here.]" },
+    { question: "What else happens besides hacking?", answer: "[Workshops, speakers, games, ...]" },
+    { question: "When will I know if I'm accepted? Is there a waitlist?", answer: "[Acceptance timeline and waitlist process.]" },
+    { question: "How can I mentor, judge, or volunteer?", answer: "Pick your role on the interest form and we'll reach out." },
+    { question: "I have another question.", answer: "Email us at [CONTACT EMAIL]." },
   ],
 };
+
+/**
+ * Short FAQ for the simple landing page (MLH placeholder site: a basic FAQ
+ * that explains the event to newcomers).
+ */
+export const landingFaq = [
+  { question: "What is a datathon?", answer: "A datathon is a hackathon focused on data. Teams spend [XX] hours exploring real datasets, finding insights, and building projects like dashboards, models, or visualizations, then present them to judges." },
+  { question: "Who can attend?", answer: "[Eligibility: which students, minimum age, experience level.]" },
+  { question: "How much does it cost?", answer: "[Answer goes here.]" },
+  { question: "When will registration open?", answer: "Join the interest form and we'll email you as soon as it opens. Full details drop [DATE]." },
+  { question: "How can I mentor, judge, volunteer, or sponsor?", answer: "Mentors, judges, and volunteers can pick their role on the interest form. Sponsors can email us (see below)." },
+];
+
 
 /**
  * Sponsors, grouped by tier. Put logo files in /public/sponsors/ and set
@@ -162,7 +191,7 @@ export const sponsors = {
     title: "Want to sponsor Knightalytics?",
     text: "[One line on why companies should sponsor.]",
     buttonLabel: "Get the sponsor packet",
-    href: "mailto:[EMAIL]",
+    href: `mailto:${event.sponsorEmail}`,
   },
 };
 
@@ -186,10 +215,12 @@ export const socials = [
   { label: "Instagram", href: "#", icon: "instagram" },
   { label: "LinkedIn", href: "#", icon: "linkedin" },
   { label: "Discord", href: "#", icon: "discord" },
-  { label: "Email", href: "mailto:[EMAIL]", icon: "email" },
+  { label: "Email", href: `mailto:${event.contactEmail}`, icon: "email" },
 ] as const;
 
+/** MLH: the footer should link to your rules and code of conduct */
 export const footerLinks = [
+  { label: "Rules", href: "#" }, // [LINK TO RULES PAGE OR DOC]
   { label: "MLH Code of Conduct", href: "https://static.mlh.io/docs/mlh-code-of-conduct.pdf" },
   { label: "[Past years]", href: "#" },
 ];
@@ -233,6 +264,8 @@ export const interestForm = {
     "Email or newsletter",
     "Tabling event on campus",
   ],
+  // Lets mentors, judges, and volunteers use the same form (MLH recommends collecting their interest too)
+  roles: ["Participant (hacker)", "Mentor", "Judge", "Volunteer"],
   experienceLevels: [
     { value: "none", label: "None yet", hint: "Totally new — that's great!" },
     { value: "beginner", label: "Beginner", hint: "A class or tutorial or two" },

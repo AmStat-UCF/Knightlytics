@@ -9,7 +9,7 @@ type Status = "idle" | "sending" | "success" | "error";
 
 // Shared Tailwind classes so every input looks the same
 const inputClass =
-  "min-h-12 w-full rounded-lg border border-line bg-bg px-4 text-base text-text placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30";
+  "min-h-12 w-full rounded-lg border border-line bg-bg px-4 text-base text-text placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30";
 const labelClass = "flex flex-col gap-2 text-[15px] font-semibold";
 const chipClass =
   "flex min-h-11 cursor-pointer items-center gap-2.5 rounded-lg border border-line bg-bg px-3.5 py-2 text-[15px] transition-colors hover:border-muted has-checked:border-accent has-checked:bg-accent/10 has-focus-visible:ring-2 has-focus-visible:ring-accent/40";
@@ -29,6 +29,9 @@ export default function InterestForm() {
       firstName: text("firstName"),
       lastName: text("lastName"),
       email: text("email"),
+      linkedin: text("linkedin"),
+      github: text("github"),
+      roles: form.getAll("roles").map(String),
       school: text("school"),
       major: text("major"),
       year: text("year"),
@@ -40,7 +43,11 @@ export default function InterestForm() {
       wantsUpdates: form.get("wantsUpdates") === "on",
     };
 
-    // 2. One extra check the browser can't do on its own
+    // 2. Extra checks the browser can't do on its own (at least one box ticked in a group)
+    if (data.roles.length === 0) {
+      setError("Please pick at least one way you'd like to take part.");
+      return;
+    }
     if (data.heardFrom.length === 0 && !data.heardFromOther) {
       setError("Please tell us how you heard about Knightalytics.");
       return;
@@ -99,6 +106,20 @@ export default function InterestForm() {
           Email *
           <input name="email" type="email" required autoComplete="email" placeholder="you@ucf.edu" className={inputClass} />
         </label>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <label className={labelClass}>
+            <span>
+              LinkedIn <span className="font-normal text-muted">(optional)</span>
+            </span>
+            <input name="linkedin" autoComplete="url" placeholder="linkedin.com/in/…" className={inputClass} />
+          </label>
+          <label className={labelClass}>
+            <span>
+              GitHub <span className="font-normal text-muted">(optional)</span>
+            </span>
+            <input name="github" placeholder="github.com/…" className={inputClass} />
+          </label>
+        </div>
         <label className={labelClass}>
           School *
           <input name="school" required defaultValue="University of Central Florida" className={inputClass} />
@@ -127,6 +148,21 @@ export default function InterestForm() {
               ))}
             </select>
           </label>
+        </div>
+      </fieldset>
+
+      {/* --- Role --- */}
+      <fieldset className="flex flex-col gap-4">
+        <legend className="mb-2 text-[15px] font-semibold">
+          How would you like to take part? * <span className="font-normal text-muted">(pick all that apply)</span>
+        </legend>
+        <div className="flex flex-wrap gap-2.5">
+          {q.roles.map((role, i) => (
+            <label key={role} className={chipClass}>
+              <input type="checkbox" name="roles" value={role} defaultChecked={i === 0} className="size-4 accent-[var(--accent)]" />
+              {role}
+            </label>
+          ))}
         </div>
       </fieldset>
 

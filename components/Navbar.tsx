@@ -9,8 +9,9 @@ import Icon from "@/components/ui/Icon";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
-  // The simple landing page only has an About section, so only show that link
-  const links = site.showFullSite ? nav : nav.filter((link) => link.href === "/#about");
+  // The simple landing page only has About, FAQ, and Sponsors, so only show those links
+  const landingLinks = ["/#about", "/#faq", "/#sponsors"];
+  const links = site.showFullSite ? nav : nav.filter((link) => landingLinks.includes(link.href));
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/90 backdrop-blur">

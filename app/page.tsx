@@ -9,7 +9,8 @@ import Faq from "@/components/Faq";
 import Sponsors from "@/components/Sponsors";
 import Team from "@/components/Team";
 import Footer from "@/components/Footer";
-import { site } from "@/lib/content";
+import SponsorInterest from "@/components/SponsorInterest";
+import { landingFaq, site } from "@/lib/content";
 
 // The page is just the sections in order. Reorder or remove lines to change the page.
 export default function Home() {
@@ -30,8 +31,13 @@ export default function Home() {
             <Team />
           </>
         ) : (
-          // Simple landing page: name, About, buttons, AmStat UCF logo
-          <Landing />
+          // Simple landing page (MLH "placeholder website"): name, About, buttons,
+          // date, AmStat UCF logo, a short FAQ, and a way for sponsors to reach us
+          <>
+            <Landing />
+            <Faq items={landingFaq} eyebrow="FAQ" />
+            <SponsorInterest />
+          </>
         )}
       </main>
       <Footer />

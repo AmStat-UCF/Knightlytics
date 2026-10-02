@@ -3,8 +3,9 @@ import { about, event, host } from "@/lib/content";
 import Button from "@/components/ui/Button";
 
 /**
- * The simple landing page (shown while site.showFullSite is false in lib/content.ts):
- * event name, About, the two buttons, and the AmStat UCF logo.
+ * Top of the simple landing page (shown while site.showFullSite is false in lib/content.ts):
+ * event name, About, the two buttons, date, and the AmStat UCF logo.
+ * app/page.tsx adds a short FAQ and a sponsor band below it.
  */
 export default function Landing() {
   return (
@@ -33,6 +34,14 @@ export default function Landing() {
             <Button href={event.learnMoreUrl} size="lg" variant="outline">
               Learn More
             </Button>
+          </div>
+
+          {/* MLH: show the date (at least the month) and when to come back for details */}
+          <div className="flex flex-col gap-1 font-mono text-sm md:text-base">
+            <span>
+              {event.dates} · {event.location}
+            </span>
+            <span className="text-muted">Full details drop {event.detailsReleaseDate}.</span>
           </div>
         </div>
 
